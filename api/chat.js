@@ -8,6 +8,22 @@ const hits = new Map() // best-effort limit; resets when the function restarts
 let day = new Date().toDateString(), total = 0
 
 export default async function handler(req, res) {
+  // TEMPORARY DIAGNOSTIC: visit /api/chat in a browser. Remove after fixing.
+  if (req.method === 'GET') {
+    const { CF_ACCOUNT_ID: id, CF_API_TOKEN: tk } = process.env
+    if (!id || !tk) return res.status(200).json({ idSet: Boolean(id), tokenSet: Boolean(tk) })
+    try {
+      const r = await fetch(`https://api.cloudflare.com/client/v4/accounts/${id}/ai/run/${MODEL}`, {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${tk}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: [{ role: 'user', content: 'Say hi' }], max_tokens: 10 })
+      })
+      const d = await r.json()
+      return res.status(200).json({ idSet: true, tokenSet: true, status: r.status, worked: Boolean(d?.result?.response), errors: d?.errors })
+    } catch (e) {
+      return res.status(200).json({ idSet: true, tokenSet: true, fetchFailed: true })
+    }
+  }
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' })
   const { CF_ACCOUNT_ID, CF_API_TOKEN } = process.env
   if (!CF_ACCOUNT_ID || !CF_API_TOKEN) return res.status(503).json({ error: 'not_configured' })
