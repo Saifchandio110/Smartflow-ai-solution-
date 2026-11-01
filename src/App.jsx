@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import Chat from './Chat.jsx'
 
 const WA = 'https://wa.me/923273602005?text=Hi%20Asher%2C%20I%27d%20like%20to%20discuss%20a%20project.'
 const NAV = [['Services', '#services'], ['Work', '#work'], ['Process', '#process'], ['FAQ', '#faq']]
@@ -168,6 +169,7 @@ export default function App() {
       <footer className="border-t border-bone/20 px-5 py-8 text-sm text-bone/60 md:px-8">
         <div className="mx-auto max-w-6xl">Asher, SmartFlow AI Solution</div>
       </footer>
+      <Chat />
     </>
   )
 }
