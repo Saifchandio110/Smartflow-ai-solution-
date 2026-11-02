@@ -23,3 +23,7 @@ details[open] .plus { transform: rotate(45deg); }
   .thread, .main-line { animation: none; stroke-dashoffset: 0; }
   * { transition: none !important; }
 }
+
+/* Dark dropdowns: closed box and the open option list */
+select { background-color: #0B1020; color: #EDE8DD; color-scheme: dark; }
+select option { background-color: #0B1020; color: #EDE8DD; }
