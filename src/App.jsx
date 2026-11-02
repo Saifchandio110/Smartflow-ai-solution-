@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Chat from './Chat.jsx'
+import InquiryForm from './InquiryForm.jsx'
 
 const WA = 'https://wa.me/923273602005?text=Hi%20Asher%2C%20I%27d%20like%20to%20discuss%20a%20project.'
 const NAV = [['Services', '#services'], ['Work', '#work'], ['Process', '#process'], ['FAQ', '#faq']]
@@ -162,8 +163,8 @@ export default function App() {
         <Hero /><Services /><Work /><Process /><Faq />
         <section id="contact" className="mx-auto max-w-6xl px-5 py-28 md:px-8">
           <h2 className="max-w-2xl font-display text-5xl sm:text-6xl">Tell us what you want to stop doing by hand.</h2>
-          <a href={WA} target="_blank" rel="noopener noreferrer" className="mt-10 inline-block bg-volt px-6 py-3 font-medium text-white hover:bg-white hover:text-ink">Message on WhatsApp</a>
-          <p className="mt-4 text-sm text-bone/60">The full project form and private chat arrive in the next phases.</p>
+          <InquiryForm />
+          <a href={WA} target="_blank" rel="noopener noreferrer" className="mt-8 inline-block underline">Or message on WhatsApp</a>
         </section>
       </main>
       <footer className="border-t border-bone/20 px-5 py-8 text-sm text-bone/60 md:px-8">
