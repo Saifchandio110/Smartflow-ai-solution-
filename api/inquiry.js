@@ -14,7 +14,7 @@ const clean = (v, max) => (typeof v === 'string' ? v.trim().slice(0, max) : '')
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' })
   const { SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY } = process.env
-  if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) return res.status(503).json({ error: 'not_configured' })
+  if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) return res.status(503).json({ error: 'server', code: 'config' })
 
   const b = req.body || {}
   if (b.website) return res.status(200).json({ token: randomBytes(32).toString('base64url') }) // honeypot: pretend success
@@ -55,7 +55,7 @@ export default async function handler(req, res) {
     const { error: e2 } = await db.from('conversations').insert({ lead_id: row.id, token_hash })
     if (e2) throw e2
     return res.status(200).json({ token })
-  } catch {
-    return res.status(500).json({ error: 'server' })
+  } catch (e) {
+    return res.status(500).json({ error: 'server', code: String(e?.code || e?.message || 'unknown').slice(0, 60) })
   }
 }

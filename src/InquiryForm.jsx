@@ -45,7 +45,7 @@ export default function InquiryForm() {
       const d = await r.json()
       if (r.ok && d.token) { setLink(`${window.location.origin}/c/${d.token}`); setState('done'); return }
       if (d.fields) setErrors(d.fields)
-      setMsg(d.error === 'too_many' ? 'Too many requests from this email. Please try again later.' : d.fields ? 'Please fix the highlighted fields.' : 'Something went wrong. Please try again or message us on WhatsApp.')
+      setMsg(d.error === 'too_many' ? 'Too many requests from this email. Please try again later.' : d.fields ? 'Please fix the highlighted fields.' : `Something went wrong${d.code ? ` (code: ${d.code})` : ''}. Please try again or message us on WhatsApp.`)
     } catch { setMsg('Network problem. Please check your connection and try again.') }
     setState('idle')
   }
