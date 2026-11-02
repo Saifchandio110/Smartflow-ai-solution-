@@ -2,6 +2,7 @@
 // Needs env vars SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY (set in Vercel only).
 import { createClient } from '@supabase/supabase-js'
 import { randomBytes, createHash } from 'node:crypto'
+import { notify } from './_notify.js'
 
 const OPTIONS = {
   contact_method: ['WhatsApp', 'Email'],
@@ -54,6 +55,7 @@ export default async function handler(req, res) {
     const token_hash = createHash('sha256').update(token).digest('hex')
     const { error: e2 } = await db.from('conversations').insert({ lead_id: row.id, token_hash })
     if (e2) throw e2
+    await notify('New inquiry', `${lead.service} inquiry received. Open admin to read it.`, `https://${req.headers.host}/admin`)
     return res.status(200).json({ token })
   } catch (e) {
     return res.status(500).json({ error: 'server', code: String(e?.code || e?.message || 'unknown').slice(0, 60) })
