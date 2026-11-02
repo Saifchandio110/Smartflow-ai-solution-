@@ -55,8 +55,9 @@ export default function InquiryForm() {
       <h3 className="font-display text-3xl">Thank you. Your inquiry is in.</h3>
       <p className="mt-3 text-bone/80">Save your private link. It is the only way back to your conversation, and we cannot recover it for you.</p>
       <p className="mt-4 break-all bg-coal p-3 text-sm">{link}</p>
+      <a href={link} className="mr-3 mt-4 inline-block border border-bone/40 px-5 py-3">Open conversation</a>
       <button onClick={() => navigator.clipboard.writeText(link).then(() => setCopied(true))} className="mt-4 bg-volt px-5 py-3 font-medium text-white">{copied ? 'Copied' : 'Copy link'}</button>
-      <p className="mt-4 text-sm text-bone/60">The private conversation page is being finished, so this link will start working in the next update.</p>
+      <p className="mt-4 text-sm text-bone/60">Open it any time to read replies and send messages to Asher.</p>
     </div>
   )
 
