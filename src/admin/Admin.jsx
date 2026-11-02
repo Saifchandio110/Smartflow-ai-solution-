@@ -105,7 +105,7 @@ function Dashboard() {
                 <p className="mt-3 whitespace-pre-wrap">{lead.description}</p>
                 <label className="mt-3 block">Status
                   <select value={lead.status} onChange={(e) => setStatus(lead.id, e.target.value)} className={`mt-1 ${inp}`}>
-                    {STATUSES.map(([v, n]) => <option key={v} value={v} className="text-black">{n}</option>)}
+                    {STATUSES.map(([v, n]) => <option key={v} value={v}>{n}</option>)}
                   </select>
                 </label>
               </div>
